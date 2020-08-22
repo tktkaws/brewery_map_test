@@ -12,4 +12,6 @@
 */
 
 Auth::routes(); //-- この行を追加
-Route::get('/', 'BreweryController@index');
+Route::get('/', 'BreweryController@index')->name('breweries.index');
+Route::resource('/breweries', 'BreweryController')->except(['index', 'show'])->middleware('auth'); //-- この行を変更
+Route::resource('/breweries', 'BreweryController')->only(['show']); //-- この行を追加
