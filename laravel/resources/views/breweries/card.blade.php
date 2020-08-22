@@ -64,4 +64,12 @@
             {{ $brewery->body }}
         </div>
     </div>
+    {{--ここから追加--}}
+    <div class="card-body pt-0 pb-2 pl-3">
+        <div class="card-text">
+            <brewery-like>
+            </brewery-like>
+        </div>
+    </div>
+    {{--ここまで追加--}}
 </div>
