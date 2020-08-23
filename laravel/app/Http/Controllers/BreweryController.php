@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brewery;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\BreweryRequest;
 
@@ -29,6 +30,12 @@ class BreweryController extends Controller
         $brewery->fill($request->all()); //-- この行を追加
         $brewery->user_id = $request->user()->id;
         $brewery->save();
+
+        $request->tags->each(function ($tagName) use ($brewery) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $brewery->tags()->attach($tag);
+        });
+
         return redirect()->route('breweries.index');
     }
 
