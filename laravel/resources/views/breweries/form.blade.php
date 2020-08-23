@@ -6,7 +6,7 @@
 </div>
 
 <div class="form-group">
-    <brewery-tags-input :initial-tags='@json($tagNames ?? [])'>
+    <brewery-tags-input :initial-tags='@json($tagNames ?? [])' :autocomplete-items='@json($allTagNames ?? [])'>
     </brewery-tags-input>
 </div>
 

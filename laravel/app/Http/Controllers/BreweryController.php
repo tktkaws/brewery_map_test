@@ -22,7 +22,13 @@ class BreweryController extends Controller
 
     public function create()
     {
-        return view('breweries.create');
+        $allTagNames = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('breweries.create', [
+            'allTagNames' => $allTagNames,
+        ]);
     }
 
     public function store(BreweryRequest $request, Brewery $brewery)
@@ -46,9 +52,14 @@ class BreweryController extends Controller
             return ['text' => $tag->name];
         });
 
+        $allTagNames = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
         return view('breweries.edit', [
             'brewery' => $brewery,
             'tagNames' => $tagNames,
+            'allTagNames' => $allTagNames,
         ]);
 
     }
