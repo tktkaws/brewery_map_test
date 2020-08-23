@@ -41,12 +41,28 @@ class BreweryController extends Controller
 
     public function edit(Brewery $brewery)
     {
-        return view('breweries.edit', ['brewery' => $brewery]);
+
+        $tagNames = $brewery->tags->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('breweries.edit', [
+            'brewery' => $brewery,
+            'tagNames' => $tagNames,
+        ]);
+
     }
 
     public function update(BreweryRequest $request, Brewery $brewery)
     {
         $brewery->fill($request->all())->save();
+
+        $brewery->tags()->detach();
+        $request->tags->each(function ($tagName) use ($brewery) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $brewery->tags()->attach($tag);
+        });
+
         return redirect()->route('breweries.index');
     }
 

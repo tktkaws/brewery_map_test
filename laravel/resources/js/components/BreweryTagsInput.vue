@@ -19,10 +19,17 @@ export default {
     components: {
         VueTagsInput
     },
+    props: {
+        initialTags: {
+            type: Array,
+            default: []
+        }
+    },
+
     data() {
         return {
             tag: "",
-            tags: [],
+            tags: this.initialTags,
             autocompleteItems: [
                 {
                     text: "Spain"
@@ -50,7 +57,6 @@ export default {
                 );
             });
         },
-
         tagsJson() {
             return JSON.stringify(this.tags);
         }
