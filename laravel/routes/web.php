@@ -15,3 +15,8 @@ Auth::routes(); //-- この行を追加
 Route::get('/', 'BreweryController@index')->name('breweries.index');
 Route::resource('/breweries', 'BreweryController')->except(['index', 'show'])->middleware('auth'); //-- この行を変更
 Route::resource('/breweries', 'BreweryController')->only(['show']); //-- この行を追加
+
+Route::prefix('breweries')->name('breweries.')->group(function () {
+    Route::put('/{brewery}/like', 'BreweryController@like')->name('like')->middleware('auth');
+    Route::delete('/{brewery}/like', 'BreweryController@unlike')->name('unlike')->middleware('auth');
+});
