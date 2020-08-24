@@ -18,6 +18,10 @@ Route::prefix('login')->name('login.')->group(function () {
     Route::get('/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('{provider}.callback');
 });
 
+Route::prefix('register')->name('register.')->group(function () {
+    Route::get('/{provider}', 'Auth\RegisterController@showProviderUserRegistrationForm')->name('{provider}');
+});
+
 Route::get('/', 'BreweryController@index')->name('breweries.index');
 Route::resource('/breweries', 'BreweryController')->except(['index', 'show'])->middleware('auth');
 Route::resource('/breweries', 'BreweryController')->only(['show']);
