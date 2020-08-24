@@ -12,6 +12,12 @@
 */
 
 Auth::routes();
+
+Route::prefix('login')->name('login.')->group(function () {
+    Route::get('/{provider}', 'Auth\LoginController@redirectToProvider')->name('{provider}');
+    Route::get('/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('{provider}.callback');
+});
+
 Route::get('/', 'BreweryController@index')->name('breweries.index');
 Route::resource('/breweries', 'BreweryController')->except(['index', 'show'])->middleware('auth');
 Route::resource('/breweries', 'BreweryController')->only(['show']);
