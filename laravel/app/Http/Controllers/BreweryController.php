@@ -34,7 +34,7 @@ class BreweryController extends Controller
 
         $breweries = $query->get();
 
-        return view('breweries.search_index', ['breweries' => $breweries]);
+        return view('breweries.search_index', ['breweries' => $breweries, 'keyword' => $keyword]);
     }
 
     public function create()

@@ -1,61 +1,72 @@
-<nav class="navbar navbar-expand navbar-dark blue-gradient">
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark amber darken-3">
 
-    <a class="navbar-brand" href="/"><i class="far fa-sticky-note mr-1"></i>memo</a>
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="/"><i class="fas fa-beer mr-1"></i>Brewry Memo</a>
 
-    <ul class="navbar-nav ml-auto">
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <!-- Collapsible content -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline ml-auto" method="GET" action="{{ route('breweries.search_index') }}">
-                <div class="md-form my-0">
-                    <input class="form-control" type="text" name="name" placeholder="" aria-label="Search">
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}">ユーザー登録</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">ログイン</a>
+            </li>
+            @endguest
+
+            @auth
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('breweries.create') }}"><i class="fas fa-pen mr-1"></i>投稿</a>
+            </li>
+            @endauth
+
+            @auth
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-primary"
+                    aria-labelledby="navbarDropdownMenuLink">
+                    <button class="dropdown-item" type="button"
+                        onclick="location.href='{{ route('users.show', ['name' => Auth::user()->name]) }}'">
+                        マイページ
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <button form="logout-button" class="dropdown-item" type="submit">
+                        ログアウト
+                    </button>
                 </div>
-                <button class="btn btn-outline-white btn-md my-0 ml-sm-2" type="submit">検索する</button>
+            </li>
+            <form id="logout-button" method="POST" action="{{ route('logout') }}">
+                @csrf
             </form>
-        </div>
-        <!-- Collapsible content -->
+            <!-- Dropdown -->
+            @endauth
 
-        @guest
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('register') }}">ユーザー登録</a>
-        </li>
-        @endguest
+        </ul>
+        <!-- Links -->
 
-        @guest
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">ログイン</a>
-        </li>
-        @endguest
-
-        @auth
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('breweries.create') }}"><i class="fas fa-pen mr-1"></i>投稿する</a>
-        </li>
-        @endauth
-
-        @auth
-        <!-- Dropdown -->
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                <i class="fas fa-user-circle"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                <button class="dropdown-item" type="button" onclick="location.href=''">
-                    マイページ
-                </button>
-                <div class="dropdown-divider"></div>
-                <button form="logout-button" class="dropdown-item" type="submit">
-                    ログアウト
-                </button>
+        <!-- Search form -->
+        <form class="form-inline" method="GET" action="{{ route('breweries.search_index') }}">
+            <div class="md-form my-0">
+                <input class="form-control mr-sm-2" type="text" name="name" placeholder="検索" aria-label="Search">
             </div>
-        </li>
-        <form id="logout-button" method="POST" action="{{ route('logout') }}">
-            @csrf
         </form>
-        <!-- Dropdown -->
-        @endauth
-
-    </ul>
+        <!-- Search form -->
+    </div>
+    <!-- Collapsible content -->
 
 </nav>
+<!--/.Navbar-->
