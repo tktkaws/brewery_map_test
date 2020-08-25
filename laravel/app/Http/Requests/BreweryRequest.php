@@ -13,7 +13,7 @@ class BreweryRequest extends FormRequest
      */
     public function authorize()
     {
-        return true; //-- この行を変更
+        return true;
     }
 
     /**

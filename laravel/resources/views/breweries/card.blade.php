@@ -3,14 +3,14 @@
         <a href="{{ route('users.show', ['name' => $brewery->user->name]) }}" class="text-dark">
 
             <i class="fas fa-user-circle fa-3x mr-1"></i>
-        </a> {{----------この行を追加----------}}
+        </a>
 
         <div>
             <div class="font-weight-bold">
                 <a href="{{ route('users.show', ['name' => $brewery->user->name]) }}" class="text-dark">
 
                     {{ $brewery->user->name }}
-                </a> {{----------この行を追加----------}}
+                </a>
 
             </div>
             <div class="font-weight-lighter">{{ $brewery->created_at->format('Y/m/d H:i') }}</div>
@@ -74,7 +74,7 @@
             {{ $brewery->body }}
         </div>
     </div>
-    {{--ここから追加--}}
+
     <div class="card-body pt-0 pb-2 pl-3">
         <div class="card-text">
             <brewery-like :initial-is-liked-by='@json($brewery->isLikedBy(Auth::user()))'
@@ -83,15 +83,13 @@
             </brewery-like>
         </div>
     </div>
-    {{--ここまで追加--}}
-    {{--------ここから追加--------}}
     @foreach($brewery->tags as $tag)
     @if($loop->first)
     <div class="card-body pt-0 pb-4 pl-3">
         <div class="card-text line-height">
             @endif
             <a href="{{ route('tags.show', ['name' => $tag->name]) }}" class="border p-1 mr-1 mt-1 text-muted">
-                {{ $tag->hashtag }} {{----------この行を変更----------}}
+                {{ $tag->hashtag }}
 
             </a>
             @if($loop->last)
@@ -99,6 +97,5 @@
     </div>
     @endif
     @endforeach
-    {{--------ここまで追加--------}}
 
 </div>
