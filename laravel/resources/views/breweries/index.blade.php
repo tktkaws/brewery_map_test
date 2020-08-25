@@ -6,7 +6,7 @@
 @include('nav')
 <div class="container">
     @foreach($breweries as $brewery)
-    @include('breweries.card') {{-- この行を追加 --}}
+    @include('breweries.card')
     @endforeach
 </div>
 @endsection
